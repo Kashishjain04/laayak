@@ -10,6 +10,12 @@ class StuLanding extends Component {
     rightCode: false,
   };
 
+  componentDidMount(){
+    if(localStorage.getItem('studentCode')){
+    this.setState({studentCode: localStorage.getItem('studentCode'), rightCode: true});
+    }
+  }
+
   handleChange = (e) => {
     const nam = e.target.name,
       val = e.target.value;
@@ -30,6 +36,7 @@ class StuLanding extends Component {
         .then((doc) => {
           if (doc.exists) {
             this.setState({ rightCode: true });
+            localStorage.setItem('studentCode', this.state.studentCode);
           } else {
             this.setState({ rightCode: false });
             alert("Wrong code entered, try again");
