@@ -6,10 +6,7 @@ import MainPage from "./StuComponents/mainPage";
 class Home extends Component {
   state = {
     studentCode: ""
-  };
-  componentDidMount(){
-    this.setState({studentCode: localStorage.getItem('studentCode')});
-  }
+  };  
   imageStyle = {
     width: "30%",
     zIndex: "-1",
