@@ -45,7 +45,11 @@ class Lecture extends Component {
           Description: <strong>{text}</strong>
         </p>
         <br />
-        <a href={link} className="btn btn-sm btn-primary m-2 p-1">
+        <a
+          href={link}
+          className="btn btn-sm btn-primary m-2 p-1"
+          target="_blank"
+        >
           Join now
         </a>
       </div>

@@ -48,19 +48,24 @@ class MainPage extends Component {
       });
       this.sortAnnouncements();
     });
-  }  
+  }
 
-  render() {    
-    const logout =() =>{
-      localStorage.removeItem('studentCode');
+  render() {
+    const logout = () => {
+      localStorage.removeItem("studentCode");
       console.log("props", window.location);
       window.location.pathname = "/";
-    }
+    };
     return (
-      // heading      
+      // heading
       <div className="container-fluid">
-        <nav><button onClick={() => logout()} className="btn btn-sm float-md-right btn-dark mb-2">Logout</button></nav>
-        <h1 className="mainPageHeading">Welcome!</h1>        
+        <button
+          onClick={() => logout()}
+          className="btn btn-sm float-md-right btn-dark mb-2"
+        >
+          Logout
+        </button>
+        <h1 className="mainPageHeading">Welcome!</h1>
         {/* semester details */}
         <h2 className="subHeading">Semester Details: </h2>
 
