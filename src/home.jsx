@@ -5,10 +5,10 @@ import MainPage from "./StuComponents/mainPage";
 
 class Home extends Component {
   state = {
-    studentCode: ""
-  };  
+    studentCode: "",
+  };
   imageStyle = {
-    width: "30%",
+    width: 500,
     zIndex: "-1",
     marginLeft: "38%",
     marginTop: "-10%",
@@ -26,41 +26,30 @@ class Home extends Component {
     );
   };
 
-  render() {
-    const display = this.state.studentCode ? <MainPage studentCode={this.state.studentCode} /> 
-    : 
-    (<div>
-      <header className="titleheader">
-        <h1 className="title">
-          Link <br />
-          Aaya <br />
-          Kya?
-        </h1>
-      </header>
-      <div className="image" style={this.imageStyle}>
-        {this.getImage()}
-      </div>
-      {/* <div className="container p-0"> */}
-      <div className="container-fluid" style={{ width: "40%" }}>
-        <div className="row">
-          <div className="col-md-6 text-center">
-            <Link to="/student">
-              <li className="btn btn-lg btn-success pl-4 pr-4 mode-btn mb-2">
-                Student
-              </li>
-            </Link>
-          </div>
-          <div className="col-md-6 ">
-            <Link to="/cr">
-              <li className="btn btn-lg btn-danger pl-4 pr-4 mode-btn">
-                Class Representative
-              </li>
-            </Link>
-          </div>
+  getHomePage = () => {
+    return (
+      <div className="home-page">
+        <header className="titleheader">
+          <h1 className="title">
+            Link <br />
+            Aaya <br />
+            Kya?
+          </h1>
+        </header>
+        <div className="image" style={this.imageStyle}>
+          {this.getImage()}
         </div>
       </div>
-    </div>)
-    return display
+    );
+  };
+
+  render() {
+    const display = this.state.studentCode ? (
+      <MainPage studentCode={this.state.studentCode} />
+    ) : (
+      this.getHomePage()
+    );
+    return display;
   }
 }
 

@@ -14,8 +14,10 @@ class MainNavBar extends Component {
           <div className="line"></div>
         </div>
 
-        <img src="./logo.png" alt="LAAYAK" className="logo" />
-
+        <div className="brand">
+          <img src="./logo.png" alt="LAAYAK" className="logo" />
+          <li>LaayaK</li>
+        </div>
         <ul className="nav-links">
           <Link to="/" className="nav-link">
             <li>home</li>
