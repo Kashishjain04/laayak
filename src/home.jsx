@@ -8,10 +8,8 @@ class Home extends Component {
     studentCode: "",
   };
   imageStyle = {
-    width: 500,
-    zIndex: "-1",
-    marginLeft: "38%",
-    marginTop: "-10%",
+    width: "500px",
+    margin: "0 auto",
   };
 
   getImage = () => {
@@ -30,11 +28,7 @@ class Home extends Component {
     return (
       <div className="home-page">
         <header className="titleheader">
-          <h1 className="title">
-            Link <br />
-            Aaya <br />
-            Kya?
-          </h1>
+          <h1 className="title">Link Aaya Kya?</h1>
         </header>
         <div className="image" style={this.imageStyle}>
           {this.getImage()}

@@ -23,11 +23,11 @@ body {
 
 .title {
   font-family: "Lobster", cursive;
-  margin-right: 15%;
+  font-size: 100px;
 }
 
 .titleheader {
-  margin-top: 2%;
+  margin-top: -10vh;
 }
 
 .home-page {
@@ -43,4 +43,8 @@ body {
 .about-title {
   color: purple;
   text-decoration: underline;
+}
+
+.dev-email {
+  color: rgba(29, 29, 29, 0.842);
 }

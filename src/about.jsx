@@ -31,15 +31,18 @@ class About extends Component {
         <h1 className="about-title">Developers</h1>
         <h5>
           PARV SHARMA
-          <span className="email"> : pscoder10462@gmail.com</span>
+          <br />
+          <span className="dev-email">pscoder10462@gmail.com</span>
         </h5>
         <h5>
           HIMESH NAYAK
-          <span className="email"> : himeshnayak015@gmail.com</span>
+          <br />
+          <span className="dev-email">himeshnayak015@gmail.com</span>
         </h5>
         <h5>
           HARESH NAYAK
-          <span className="email"> : sketchharry01@gmail.com</span>
+          <br />
+          <span className="dev-email">sketchharry01@gmail.com</span>
         </h5>
       </div>
     );
