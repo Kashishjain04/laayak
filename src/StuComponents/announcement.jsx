@@ -46,12 +46,12 @@ class Announcement extends Component {
         <p>
           Date Time: <strong>{dateTime}</strong>
         </p>
-        <p>
+        {/* <p>
           Link:{" "}
           <span className="alert-link">
             <strong>{link}</strong>
           </span>
-        </p>
+        </p> */}
         <p>
           About this Link: <strong>{text}</strong>
         </p>
