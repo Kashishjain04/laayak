@@ -10,9 +10,12 @@ class StuLanding extends Component {
     rightCode: false,
   };
 
-  componentDidMount(){
-    if(localStorage.getItem('studentCode')){
-    this.setState({studentCode: localStorage.getItem('studentCode'), rightCode: true});
+  componentDidMount() {
+    if (localStorage.getItem("studentCode")) {
+      this.setState({
+        studentCode: localStorage.getItem("studentCode"),
+        rightCode: true,
+      });
     }
   }
 
@@ -36,7 +39,7 @@ class StuLanding extends Component {
         .then((doc) => {
           if (doc.exists) {
             this.setState({ rightCode: true });
-            localStorage.setItem('studentCode', this.state.studentCode);
+            localStorage.setItem("studentCode", this.state.studentCode);
           } else {
             this.setState({ rightCode: false });
             alert("Wrong code entered, try again");

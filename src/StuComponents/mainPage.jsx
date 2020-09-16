@@ -3,6 +3,7 @@ import Details from "./details";
 import Subject from "./subject";
 import Lecture from "./lecture";
 import Announcement from "./announcement";
+import BottomNav from "../BottomNav/bnav";
 import firebase from "../firebase";
 import "./assets/css/mainPage.css";
 
@@ -67,14 +68,16 @@ class MainPage extends Component {
         </button>
         <h1 className="mainPageHeading">Welcome!</h1>
         {/* semester details */}
-        <h2 className="subHeading">Semester Details: </h2>
-
+        <div id="details">
+          <h2 className="subHeading">Semester Details: </h2>
+        </div>
         <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
         <Details details={this.state.details} />
 
         {/* list of subjects */}
-        <h2 className="subHeading">Subjects You study:</h2>
-
+        <div id="subjects">
+          <h2 className="subHeading">Subjects You study:</h2>
+        </div>
         <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
 
         <div className="my-flex-container">
@@ -84,8 +87,9 @@ class MainPage extends Component {
         </div>
 
         {/* lectures on the day */}
-        <h2 className="subHeading">Lectures Today:</h2>
-
+        <div id="lectures">
+          <h2 className="subHeading">Lectures Today:</h2>
+        </div>
         <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
 
         <div className="my-flex-container">
@@ -95,9 +99,11 @@ class MainPage extends Component {
         </div>
 
         {/* Announcement/polls/links */}
-        <div className="d-inline container-fluid">
-          <h2 className="subHeading">Mitron! Announcement Suno</h2>
-          <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
+        <div id="announcements">
+          <div className="d-inline container-fluid">
+            <h2 className="subHeading">Mitron! Announcement Suno</h2>
+            <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
+          </div>
         </div>
 
         <div className="m-4 ">
@@ -111,6 +117,7 @@ class MainPage extends Component {
             </div>
           ))}
         </div>
+        <BottomNav />
       </div>
     );
   }
