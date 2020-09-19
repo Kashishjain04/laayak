@@ -35,11 +35,13 @@ class MainPage extends Component {
       });
     });
     this.docRefLec.onSnapshot((doc) => {
-      this.setState({
-        lecturesToday: doc.data().lectures.map((lecture) => {
-          return { ...lecture };
-        }),
-      });
+      if (doc.data().lectures) {
+        this.setState({
+          lecturesToday: doc.data().lectures.map((lecture) => {
+            return { ...lecture };
+          }),
+        });
+      }
     });
     this.docRefUp.onSnapshot((doc) => {
       this.setState({
@@ -67,24 +69,6 @@ class MainPage extends Component {
           Logout
         </button>
         <h1 className="mainPageHeading">Welcome!</h1>
-        {/* semester details */}
-        <div id="details">
-          <h2 className="subHeading">Semester Details: </h2>
-        </div>
-        <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
-        <Details details={this.state.details} />
-
-        {/* list of subjects */}
-        <div id="subjects">
-          <h2 className="subHeading">Subjects You study:</h2>
-        </div>
-        <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
-
-        <div className="my-flex-container">
-          {this.state.subjects.map((subject) => (
-            <Subject subject={subject} key={subject.subjectCode} />
-          ))}
-        </div>
 
         {/* lectures on the day */}
         <div id="lectures">
@@ -92,7 +76,7 @@ class MainPage extends Component {
         </div>
         <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
 
-        <div className="my-flex-container">
+        <div className="lectures-row">
           {this.state.lecturesToday.map((lecture) => (
             <Lecture lecture={lecture} key={lecture.startTime} />
           ))}
@@ -106,9 +90,9 @@ class MainPage extends Component {
           </div>
         </div>
 
-        <div className="m-4 ">
+        <div className="m-4 ann-container">
           {this.state.announcements.map((announcement) => (
-            <div className="my-flex-container">
+            <div>
               <Announcement
                 announcement={announcement}
                 key={announcement.dateAndTime}
@@ -117,6 +101,26 @@ class MainPage extends Component {
             </div>
           ))}
         </div>
+
+        {/* list of subjects */}
+        <div id="subjects">
+          <h2 className="subHeading">Subjects You study:</h2>
+        </div>
+        <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
+
+        <div className="my-flex-container">
+          {this.state.subjects.map((subject) => (
+            <Subject subject={subject} key={subject.subjectCode} />
+          ))}
+        </div>
+
+        {/* semester details */}
+        <div id="details">
+          <h2 className="subHeading">Semester Details: </h2>
+        </div>
+        <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
+        <Details details={this.state.details} />
+
         <BottomNav />
       </div>
     );

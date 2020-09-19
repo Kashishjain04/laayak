@@ -17,11 +17,13 @@
 .shadow-hover {
   transition-duration: 0.2s;
   margin: 5px auto;
+  border-radius: 3% 3%;
 }
 
 .shadow-hover:hover {
   box-shadow: 2px 2px 10px 10px rgba(255, 31, 255, 0.226);
   background-color: white;
+  transform: scale(1.03);
 }
 
 .my-card-details {
@@ -29,19 +31,44 @@
   text-align: left;
 }
 
-.announcement-card:hover {
-  box-shadow: 2px 2px 10px 10px rgba(206, 255, 28, 0.61);
-  background-color: rgb(255, 255, 155);
+.announcement-card,
+.link-card,
+.poll-card {
+  opacity: 0.9;
+  border-radius: 2% 2%;
+  width: 80vw;
 }
 
+.announcement-card {
+  background-color: wheat;
+}
+
+.poll-card {
+  background-color: rgb(233, 233, 233);
+}
+
+.link-card {
+  background-color: lightgreen;
+}
+
+.announcement-card:hover,
+.link-card:hover,
 .poll-card:hover {
-  box-shadow: 2px 2px 10px 10px rgba(10, 187, 98, 0.568);
-  background-color: rgb(141, 219, 255);
+  opacity: 1;
+  transform: scale(1.02);
+  box-shadow: 2px 2px 5px 5px rgba(179, 255, 179, 0.295);
 }
 
-.link-card:hover {
-  box-shadow: 2px 2px 10px 10px rgba(255, 1, 1, 0.466);
-  background-color: rgb(250, 159, 174);
+.link-card {
+  overflow: hidden;
+}
+
+.ann-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  object-fit: contain;
 }
 
 .my-flex-container {
@@ -49,4 +76,48 @@
   align-items: stretch;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+.lectures-row {
+  display: flex;
+  overflow-x: scroll;
+  align-items: center;
+  overflow-y: hidden;
+  justify-content: flex-start;
+  align-self: stretch;
+}
+
+.lec-card {
+  height: 100%;
+  margin-left: 0;
+  padding: 20px;
+}
+
+.lectures-row::-webkit-scrollbar {
+  display: none;
+}
+
+.subject-card {
+  height: 100%;
+  padding: 20px;
+}
+
+.subject-card:hover {
+  transform: scale(1.03);
+}
+
+.btn-lec {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-grow: stretch;
+  justify-content: space-around;
+}
+
+.join-copy {
+  width: 45%;
+}
+
+p {
+  letter-spacing: 0.8px;
 }

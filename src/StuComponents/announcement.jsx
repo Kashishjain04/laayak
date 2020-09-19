@@ -1,14 +1,25 @@
 import React, { Component } from "react";
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 class Announcement extends Component {
   state = {};
 
   render() {
-    return (
-      <div className={this.getClass()} style={{ marginLeft: "10%" }}>
-        {this.displayUpdate()}
-      </div>
-    );
+    return <div className={this.getClass()}>{this.displayUpdate()}</div>;
   }
 
   displayUpdate = () => {
@@ -25,11 +36,32 @@ class Announcement extends Component {
 
   displayAnnouncement = () => {
     const { dateAndTime, text } = this.props.announcement;
-    let dateTime = String(dateAndTime.toDate());
+    let dateTime = dateAndTime.toDate();
+    const date = dateTime.getDate();
+
+    const month = months[dateTime.getMonth() - 1];
+    const year = dateTime.getFullYear();
+    let hour = dateTime.getHours();
+    let ampm = "am";
+    if (hour > 12) {
+      hour -= 12;
+      ampm = "pm ";
+    }
+    let min = "00",
+      mins = dateTime.getMinutes();
+    mins < 10 ? (min = "0" + String(mins)) : (min = String(mins));
     return (
       <div>
         <p>
-          Date Time: <strong>{dateTime}</strong>
+          Posted On:{" "}
+          <strong>
+            {month} {date}, {year}
+          </strong>{" "}
+          at{" "}
+          <strong>
+            {hour}: {min}
+            {ampm}
+          </strong>
         </p>
         <p>
           Announcement: <strong>{text}</strong>
@@ -40,22 +72,48 @@ class Announcement extends Component {
 
   displayLink = () => {
     const { dateAndTime, text, link } = this.props.announcement;
-    let dateTime = String(dateAndTime.toDate());
+    let dateTime = dateAndTime.toDate();
+    const date = dateTime.getDate();
+
+    const month = months[dateTime.getMonth() - 1];
+    const year = dateTime.getFullYear();
+    let hour = dateTime.getHours();
+    let ampm = "am";
+    if (hour > 12) {
+      hour -= 12;
+      ampm = "pm ";
+    }
+    let min = "00",
+      mins = dateTime.getMinutes();
+    mins < 10 ? (min = "0" + String(mins)) : (min = String(mins));
+
     return (
       <div>
         <p>
-          Date Time: <strong>{dateTime}</strong>
+          Posted On:{" "}
+          <strong>
+            {month} {date}, {year}
+          </strong>{" "}
+          at{" "}
+          <strong>
+            {hour}: {min}
+            {ampm}
+          </strong>
         </p>
-        {/* <p>
+        <p>
           Link:{" "}
           <span className="alert-link">
             <strong>{link}</strong>
           </span>
-        </p> */}
+        </p>
         <p>
           About this Link: <strong>{text}</strong>
         </p>
-        <a href={link} className="btn btn-sm btn-danger mb-2">
+        <a
+          href={link}
+          className="btn btn-sm btn-danger mb-2"
+          target="about_blank"
+        >
           Go to Link
         </a>
       </div>
@@ -71,40 +129,89 @@ class Announcement extends Component {
       noCount,
       noOption,
     } = this.props.announcement;
-    const yesVotePercent = (yesCount * 100) / (noCount + yesCount);
-    let dateTime = String(dateAndTime.toDate());
+    let dateTime = dateAndTime.toDate();
+    const date = dateTime.getDate();
+
+    const month = months[dateTime.getMonth() - 1];
+    const year = dateTime.getFullYear();
+    let hour = dateTime.getHours();
+    let ampm = "am";
+    if (hour > 12) {
+      hour -= 12;
+      ampm = "pm ";
+    }
+    let min = "00",
+      mins = dateTime.getMinutes();
+    mins < 10 ? (min = "0" + String(mins)) : (min = String(mins));
+    let yesVotePercent = (yesCount * 100) / (noCount + yesCount);
+    if (Number.isNaN(yesVotePercent)) yesVotePercent = 0;
     return (
       <div>
         <p>
-          Date Time: <strong>{dateTime}</strong>
+          Posted On:{" "}
+          <strong>
+            {month} {date}, {year}
+          </strong>{" "}
+          at{" "}
+          <strong>
+            {hour}: {min}
+            {ampm}
+          </strong>
         </p>
         <p>
           Poll: <strong>{text}</strong>
         </p>
-        <p>
-          Option 1: {yesOption} <br /> Votes: <strong>{yesCount}</strong>{" "}
-          Percentage: <strong>{yesVotePercent}%</strong>
-        </p>
-        <p>
-          Option 2: {noOption} <br /> Votes: <strong>{noCount}</strong>{" "}
-          Percentage: <strong>{100 - yesVotePercent}%</strong>
-        </p>
+
+        <div className="row">
+          <div className="col-md-6">
+            <table className="table">
+              <tr>
+                <td>Option</td>
+                <td>{yesOption}</td>
+              </tr>
+              <tr>
+                <td>Votes</td>
+                <td>{yesCount}</td>
+              </tr>
+              <tr>
+                <td>Percentage</td>
+                <td> {yesVotePercent.toFixed(2)}% </td>
+              </tr>
+            </table>
+          </div>
+          <div className="col-md-6">
+            <table className="table">
+              <tr>
+                <td>Option</td>
+                <td>{noOption}</td>
+              </tr>
+              <tr>
+                <td>Votes</td>
+                <td>{noCount}</td>
+              </tr>
+              <tr>
+                <td>Percentage</td>
+                <td> {100 - yesVotePercent.toFixed(2)}% </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     );
   };
 
   getClass = () => {
     const { type } = this.props.announcement;
-    let cls = "col-md-6 m-2 ";
+    let cls = "text-left p-2 mb-4 ";
     switch (type) {
       case "announcement":
-        cls = cls + "alert-warning announcement-card";
+        cls = cls + "announcement-card ";
         break;
       case "poll":
-        cls = cls + "alert-info poll-card";
+        cls = cls + "poll-card";
         break;
       case "link":
-        cls = cls + "alert-danger link-card";
+        cls = cls + "link-card";
         break;
     }
     return cls;

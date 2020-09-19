@@ -4,7 +4,10 @@ class Lecture extends Component {
   state = {};
   render() {
     return (
-      <div className="shadow-hover my-card-details p-2">
+      <div
+        className="lec-card shadow-hover my-card-details p-2"
+        style={{ minWidth: "18rem", marginRight: "30px" }}
+      >
         {this.renderLecture()}
       </div>
     );
@@ -19,10 +22,33 @@ class Lecture extends Component {
       endTime,
       link,
       text,
+      group,
     } = this.props.lecture;
 
+    let startHour = startTime.toDate().getHours(),
+      startMins = startTime.toDate().getMinutes(),
+      startAmPm = "am";
+    if (startHour > 12) {
+      startHour = startHour - 12;
+      startAmPm = "pm";
+    }
+
+    let startMin = "00";
+    startMins < 10 ? (startMin = "0" + String(startMins)) : String(startMins);
+
+    let endHour = endTime.toDate().getHours(),
+      endMins = endTime.toDate().getMinutes(),
+      endAmPm = "am";
+
+    if (endHour > 12) {
+      endHour = endHour - 12;
+      endAmPm = "pm";
+    }
+    let endMin = "00";
+    endMins < 10 ? (endMin = "0" + String(endMins)) : String(endMins);
+
     return (
-      <div className="text-left">
+      <div>
         <p>
           Subject: <strong>{subject}</strong>
         </p>
@@ -32,28 +58,49 @@ class Lecture extends Component {
         <p>
           Teacher: <strong>{teacher}</strong>
         </p>
+
         <p>
-          Start Time: <strong>{String(startTime.toDate())}</strong>
+          Timings:{" "}
+          <strong>
+            {startHour} : {startMin} {startAmPm} to {endHour} : {endMin}{" "}
+            {endAmPm}
+          </strong>
         </p>
         <p>
-          endTime: <strong>{String(endTime.toDate())}</strong>
+          Group: <strong>{group ? group : "All"}</strong>
         </p>
-        <p>
-          Class Link: <strong>{link}</strong>
-        </p>
-        <p>
+        <p className="mb-0">
           Description: <strong>{text}</strong>
         </p>
         <br />
-        <a
-          href={link}
-          className="btn btn-sm btn-primary m-2 p-1"
-          target="_blank"
-        >
-          Join now
-        </a>
+        <div className="btn-lec">
+          <a
+            href={link}
+            className="btn btn-primary mt-0 join-copy"
+            target="_blank"
+          >
+            Join now
+          </a>
+          <button
+            className="btn btn-success mt-0 join-copy"
+            onClick={this.copyLink}
+          >
+            Copy Link
+          </button>
+        </div>
       </div>
     );
+  };
+
+  copyLink = (e) => {
+    const { link } = this.props.lecture;
+    const el = document.createElement("textarea");
+    el.value = link;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    alert("link copied!");
   };
 }
 

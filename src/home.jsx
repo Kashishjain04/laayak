@@ -8,7 +8,8 @@ class Home extends Component {
     studentCode: "",
   };
   imageStyle = {
-    width: "500px",
+    width: "35vw",
+    minWidth: "300px",
     margin: "0 auto",
   };
 
