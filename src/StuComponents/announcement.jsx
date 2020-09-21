@@ -145,6 +145,8 @@ class Announcement extends Component {
     mins < 10 ? (min = "0" + String(mins)) : (min = String(mins));
     let yesVotePercent = (yesCount * 100) / (noCount + yesCount);
     if (Number.isNaN(yesVotePercent)) yesVotePercent = 0;
+    let noVotePercent = (noCount * 100) / (noCount + yesCount);
+    if (Number.isNaN(noVotePercent)) noVotePercent = 0;
     return (
       <div>
         <p>
@@ -191,7 +193,7 @@ class Announcement extends Component {
               </tr>
               <tr>
                 <td>Percentage</td>
-                <td> {100 - yesVotePercent.toFixed(2)}% </td>
+                <td> {noVotePercent.toFixed(2)}% </td>
               </tr>
             </table>
           </div>

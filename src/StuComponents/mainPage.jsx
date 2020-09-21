@@ -27,15 +27,17 @@ class MainPage extends Component {
   // extracting data from db
   componentDidMount() {
     this.docRef.onSnapshot((doc) => {
-      this.setState({
-        subjects: doc.data().subjects.map((subject) => {
-          return { ...subject };
-        }),
-        details: doc.data().details,
-      });
+      if (doc.data()) {
+        this.setState({
+          subjects: doc.data().subjects.map((subject) => {
+            return { ...subject };
+          }),
+          details: doc.data().details,
+        });
+      }
     });
     this.docRefLec.onSnapshot((doc) => {
-      if (doc.data().lectures) {
+      if (doc.data()) {
         this.setState({
           lecturesToday: doc.data().lectures.map((lecture) => {
             return { ...lecture };
@@ -44,12 +46,14 @@ class MainPage extends Component {
       }
     });
     this.docRefUp.onSnapshot((doc) => {
-      this.setState({
-        announcements: doc.data().announcements.map((announcement) => {
-          return { ...announcement };
-        }),
-      });
-      this.sortAnnouncements();
+      if (doc.data()) {
+        this.setState({
+          announcements: doc.data().announcements.map((announcement) => {
+            return { ...announcement };
+          }),
+        });
+        this.sortAnnouncements();
+      }
     });
   }
 
@@ -88,8 +92,21 @@ class MainPage extends Component {
             <h2 className="subHeading">Mitron! Announcement Suno</h2>
             <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
           </div>
+          <div className="key-container">
+            <h5 className="m-2" style={{ textDecoration: "underline" }}>
+              Key
+            </h5>
+            <div className="announcement-card m-2" style={{ width: "120px" }}>
+              <span className="p-2">Announcements</span>
+            </div>
+            <div className="link-card m-2" style={{ width: "50px" }}>
+              <span className="p-2">Links</span>
+            </div>
+            <div className="poll-card m-2" style={{ width: "50px" }}>
+              <span className="p-2">Polls</span>
+            </div>
+          </div>
         </div>
-
         <div className="m-4 ann-container">
           {this.state.announcements.map((announcement) => (
             <div>

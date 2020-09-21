@@ -34,37 +34,19 @@ class AddSubject extends Component {
 
   render() {
     return (
-      <div
-        className="my-card-details shadow-hover text-center"
-        style={{ width: "18rem" }}
-      >
-        <div className="card-body">
-          <h5 className="card-title">Add Subject</h5>
-          <button className="btn btn-info" onClick={this.showModal}>
-            <svg
-              width="5em"
-              height="5em"
-              viewBox="0 0 16 16"
-              className="bi bi-plus"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
-              />
-            </svg>
-          </button>
+      <div>
+        <button className="btn btn-info btn-lg mb-4" onClick={this.showModal}>
+          New Subject +
+        </button>
 
-          <div className={this.showHideClassName()}>
-            <section className="" style={this.styles}>
-              <h3 className="mt-2">Add Subject Details:</h3>
-              <form onSubmit={this.callAddSubject}>{this.getForm()}</form>
-              <button className="btn-info btn mb-2" onClick={this.hideModal}>
-                Close
-              </button>
-            </section>
-          </div>
+        <div className={this.showHideClassName()}>
+          <section className="" style={this.styles}>
+            <h3 className="mt-2">Add Subject Details:</h3>
+            <form onSubmit={this.callAddSubject}>{this.getForm()}</form>
+            <button className="btn-info btn mb-2" onClick={this.hideModal}>
+              Close
+            </button>
+          </section>
         </div>
       </div>
     );

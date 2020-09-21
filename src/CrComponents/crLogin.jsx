@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import firebase from "../firebase";
 
 class CrLogin extends Component {
@@ -15,7 +16,7 @@ class CrLogin extends Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleLogin = (e) => {
     e.preventDefault();
     const email = this.state.email,
       pass = this.state.password;
@@ -29,6 +30,7 @@ class CrLogin extends Component {
         alert(err.message);
       });
   };
+
   render() {
     return (
       <div>
@@ -41,7 +43,7 @@ class CrLogin extends Component {
   getForm = () => {
     return (
       <div className="container">
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">Email</label>
             <div className="col-sm-10">
@@ -67,8 +69,16 @@ class CrLogin extends Component {
               />
             </div>
           </div>
-          <button className="btn btn-info">Sign In</button>
+          <button className="btn btn-info" onClick={this.handleLogin}>
+            Sign In
+          </button>
         </form>
+        <p className="text-small">
+          New User?{" "}
+          <Link to="/newcr" style={{ color: "purple" }}>
+            Sign Up
+          </Link>
+        </p>
       </div>
     );
   };

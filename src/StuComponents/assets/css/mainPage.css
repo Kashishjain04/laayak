@@ -91,6 +91,7 @@
   height: 100%;
   margin-left: 0;
   padding: 20px;
+  overflow-wrap: break-word;
 }
 
 .lectures-row::-webkit-scrollbar {
@@ -120,4 +121,28 @@
 
 p {
   letter-spacing: 0.8px;
+}
+
+.key-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.code-head-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: row;
+}
+
+@media (max-width: 350px) {
+  .key-container {
+    flex-direction: column;
+  }
+  .code-head-btn {
+    flex-direction: column;
+    align-items: center;
+  }
 }
