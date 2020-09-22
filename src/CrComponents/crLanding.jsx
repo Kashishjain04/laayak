@@ -6,6 +6,8 @@ import MainPage from "./mainPage";
 const db = firebase.firestore();
 
 class CrLanding extends Component {
+  isMount = false;
+
   state = {
     user: null,
     doc: "",
@@ -18,17 +20,26 @@ class CrLanding extends Component {
         docRef.get().then((doc) => {
           const loc = doc.data().listOfCRs;
           const email = user.email;
-          this.setState({
-            doc: loc[email],
-          });
+          if (this.isMount) {
+            this.setState({
+              doc: loc[email],
+            });
+          }
         });
       }
-      this.setState({ user });
+      if (this.isMount) {
+        this.setState({ user });
+      }
     });
   };
 
   componentDidMount() {
+    this.isMount = true;
     this.authListener();
+  }
+
+  componentWillUnmount() {
+    this.isMount = false;
   }
 
   render() {
@@ -40,5 +51,3 @@ class CrLanding extends Component {
   }
 }
 export default CrLanding;
-
-// CrEmail={this.state.doc}

@@ -3,6 +3,7 @@ import Details from "./details";
 import Subject from "./subject";
 import Lecture from "./lecture";
 import Announcement from "./announcement";
+import BottomNav from "../BottomNav/bnav";
 import firebase from "../firebase";
 import "./assets/css/mainPage.css";
 
@@ -26,78 +27,89 @@ class MainPage extends Component {
   // extracting data from db
   componentDidMount() {
     this.docRef.onSnapshot((doc) => {
-      this.setState({
-        subjects: doc.data().subjects.map((subject) => {
-          return { ...subject };
-        }),
-        details: doc.data().details,
-      });
+      if (doc.data()) {
+        this.setState({
+          subjects: doc.data().subjects.map((subject) => {
+            return { ...subject };
+          }),
+          details: doc.data().details,
+        });
+      }
     });
     this.docRefLec.onSnapshot((doc) => {
-      this.setState({
-        lecturesToday: doc.data().lectures.map((lecture) => {
-          return { ...lecture };
-        }),
-      });
+      if (doc.data()) {
+        this.setState({
+          lecturesToday: doc.data().lectures.map((lecture) => {
+            return { ...lecture };
+          }),
+        });
+      }
     });
     this.docRefUp.onSnapshot((doc) => {
-      this.setState({
-        announcements: doc.data().announcements.map((announcement) => {
-          return { ...announcement };
-        }),
-      });
-      this.sortAnnouncements();
+      if (doc.data()) {
+        this.setState({
+          announcements: doc.data().announcements.map((announcement) => {
+            return { ...announcement };
+          }),
+        });
+        this.sortAnnouncements();
+      }
     });
-  }  
+  }
 
-  render() {    
-    const logout =() =>{
-      localStorage.removeItem('studentCode');
+  render() {
+    const logout = () => {
+      localStorage.removeItem("studentCode");
       console.log("props", window.location);
       window.location.pathname = "/";
-    }
+    };
     return (
-      // heading      
+      // heading
       <div className="container-fluid">
-        <nav><button onClick={() => logout()} className="btn btn-sm float-md-right btn-dark mb-2">Logout</button></nav>
-        <h1 className="mainPageHeading">Welcome!</h1>        
-        {/* semester details */}
-        <h2 className="subHeading">Semester Details: </h2>
-
-        <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
-        <Details details={this.state.details} />
-
-        {/* list of subjects */}
-        <h2 className="subHeading">Subjects You study:</h2>
-
-        <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
-
-        <div className="my-flex-container">
-          {this.state.subjects.map((subject) => (
-            <Subject subject={subject} key={subject.subjectCode} />
-          ))}
-        </div>
+        <button
+          onClick={() => logout()}
+          className="btn btn-sm float-md-right btn-dark mb-2"
+        >
+          Logout
+        </button>
+        <h1 className="mainPageHeading">Welcome!</h1>
 
         {/* lectures on the day */}
-        <h2 className="subHeading">Lectures Today:</h2>
-
+        <div id="lectures">
+          <h2 className="subHeading">Lectures Today:</h2>
+        </div>
         <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
 
-        <div className="my-flex-container">
+        <div className="lectures-row">
           {this.state.lecturesToday.map((lecture) => (
             <Lecture lecture={lecture} key={lecture.startTime} />
           ))}
         </div>
 
         {/* Announcement/polls/links */}
-        <div className="d-inline container-fluid">
-          <h2 className="subHeading">Mitron! Announcement Suno</h2>
-          <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
+        <div id="announcements">
+          <div className="d-inline container-fluid">
+            <h2 className="subHeading">Mitron! Announcement Suno</h2>
+            <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
+          </div>
+          <div className="key-container">
+            <h5 className="m-2" style={{ textDecoration: "underline" }}>
+              Key
+            </h5>
+            <div className="announcement-card m-2" style={{ width: "120px" }}>
+              <span className="p-2">Announcements</span>
+            </div>
+            <div className="link-card m-2" style={{ width: "50px" }}>
+              <span className="p-2">Links</span>
+            </div>
+            <div className="poll-card m-2" style={{ width: "50px" }}>
+              <span className="p-2">Polls</span>
+            </div>
+          </div>
         </div>
-
-        <div className="m-4 ">
+        <div className="m-4 ann-container">
           {this.state.announcements.map((announcement) => (
-            <div className="my-flex-container">
+            <div>
               <Announcement
                 announcement={announcement}
                 key={announcement.dateAndTime}
@@ -106,6 +118,27 @@ class MainPage extends Component {
             </div>
           ))}
         </div>
+
+        {/* list of subjects */}
+        <div id="subjects">
+          <h2 className="subHeading">Subjects You study:</h2>
+        </div>
+        <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
+
+        <div className="my-flex-container">
+          {this.state.subjects.map((subject) => (
+            <Subject subject={subject} key={subject.subjectCode} />
+          ))}
+        </div>
+
+        {/* semester details */}
+        <div id="details">
+          <h2 className="subHeading">Semester Details: </h2>
+        </div>
+        <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
+        <Details details={this.state.details} />
+
+        <BottomNav />
       </div>
     );
   }

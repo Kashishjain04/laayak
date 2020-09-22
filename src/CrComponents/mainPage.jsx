@@ -47,49 +47,111 @@ class MainPage extends Component {
   // extracting data from db
   componentDidMount() {
     this.docRef.onSnapshot((doc) => {
-      this.setState({
-        subjects: doc.data().subjects.map((subject) => {
-          return { ...subject };
-        }),
-        details: doc.data().details,
-      });
+      if (doc.data()) {
+        this.setState({
+          subjects: doc.data().subjects.map((subject) => {
+            return { ...subject };
+          }),
+          details: doc.data().details,
+        });
+      }
     });
     this.docRefLec.onSnapshot((doc) => {
-      this.setState({
-        lecturesToday: doc.data().lectures.map((lecture) => {
-          return { ...lecture };
-        }),
-      });
+      if (doc.data()) {
+        this.setState({
+          lecturesToday: doc.data().lectures.map((lecture) => {
+            return { ...lecture };
+          }),
+        });
+      }
     });
     this.docRefUp.onSnapshot((doc) => {
-      this.setState({
-        announcements: doc.data().announcements.map((announcement) => {
-          return { ...announcement };
-        }),
-      });
-      this.sortAnnouncements();
+      if (doc.data()) {
+        this.setState({
+          announcements: doc.data().announcements.map((announcement) => {
+            return { ...announcement };
+          }),
+        });
+        this.sortAnnouncements();
+      }
     });
   }
 
   render() {
     return (
-      // heading
       <div className="container-fluid">
-        <h1 className="mt-3 mainPageHeading">CR Control Page!</h1>
-        {/* signout btn */}
-        <button className="btn btn-danger" onClick={this.handleSignOut}>
-          Sign Out
-        </button>
+        <div className="code-head-btn">
+          <h5>Code: {this.state.crCode}</h5>
+          {/* signout btn */}
 
-        {/* semester details */}
-        <h2 className="subHeading">Semester Details: </h2>
+          <h1 className="mainPageHeading" style={{ marginTop: "-3vh" }}>
+            CR Control Page!
+          </h1>
+          <button className="btn btn-danger" onClick={this.handleSignOut}>
+            Sign Out
+          </button>
+        </div>
+        {/* lectures on the day */}
+        <h2 className="subHeading">Lectures Today:</h2>
         <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
 
-        <Details details={this.state.details} onEdit={this.handleDetailsEdit} />
+        <AddLecture addLecture={this.addLecture} />
+
+        <div className="lectures-row">
+          {this.state.lecturesToday.map((lecture) => (
+            <Lecture
+              lecture={lecture}
+              key={lecture.startTime}
+              onDelete={this.deleteLecture}
+            />
+          ))}
+        </div>
+        {/* Announcement/polls/links */}
+        <div id="announcements">
+          <div className="d-inline container-fluid">
+            <h2 className="subHeading">Mitron! Announcement Suno</h2>
+            <hr className="mb-4" style={{ margin: "0 auto", width: "40%" }} />
+          </div>
+
+          <div className="d-flex justify-content-center mb-4">
+            <AddAnnouncement AddAnnouncement={this.AddAnnouncement} />
+            <AddPoll addPoll={this.AddAnnouncement} />
+            <AddLink addLink={this.AddAnnouncement} />
+          </div>
+
+          <div className="key-container">
+            <h5 className="m-2" style={{ textDecoration: "underline" }}>
+              Key
+            </h5>
+            <div className="announcement-card m-2" style={{ width: "120px" }}>
+              <span className="p-2">Announcements</span>
+            </div>
+            <div className="link-card m-2" style={{ width: "50px" }}>
+              <span className="p-2">Links</span>
+            </div>
+            <div className="poll-card m-2" style={{ width: "50px" }}>
+              <span className="p-2">Polls</span>
+            </div>
+          </div>
+        </div>
+        <div className="m-4 ann-container">
+          {this.state.announcements.map((announcement) => (
+            <div>
+              <Announcement
+                announcement={announcement}
+                key={announcement.dateAndTime}
+                id={announcement.dateAndTime}
+              />
+            </div>
+          ))}
+        </div>
 
         {/* list of subjects */}
         <h2 className="subHeading">Subjects You study:</h2>
         <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
+        {/* button to add a new subject */}
+
+        <AddSubject addSubject={this.addSubject} />
 
         <div className="my-flex-container">
           {this.state.subjects.map((subject) => (
@@ -99,48 +161,13 @@ class MainPage extends Component {
               onDelete={this.deleteSubject}
             />
           ))}
-
-          {/* button to add a new subject */}
-          <AddSubject addSubject={this.addSubject} />
         </div>
 
-        {/* lectures on the day */}
-        <h2 className="subHeading">Lectures Today:</h2>
+        {/* semester details */}
+        <h2 className="subHeading">Semester Details: </h2>
         <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
 
-        <AddLecture addLecture={this.addLecture} />
-
-        <div className="my-flex-container">
-          {this.state.lecturesToday.map((lecture) => (
-            <Lecture
-              lecture={lecture}
-              key={lecture.startTime}
-              onDelete={this.deleteLecture}
-            />
-          ))}
-        </div>
-
-        {/* Announcement/polls/links */}
-        <div className="d-inline container-fluid">
-          <h2 className="subHeading">Mitron! Announcement Suno</h2>
-          <hr className="mb-4" style={{ margin: "0 auto", width: "18rem" }} />
-
-          <div className="d-flex justify-content-center">
-            <AddAnnouncement AddAnnouncement={this.AddAnnouncement} />
-            <AddPoll addPoll={this.AddAnnouncement} />
-            <AddLink addLink={this.AddAnnouncement} />
-          </div>
-        </div>
-        <div className="my-flex-container">
-          {this.state.announcements.map((announcement) => (
-            <Announcement
-              announcement={announcement}
-              key={announcement.dateAndTime}
-              id={announcement.dateAndTime}
-              onDelete={this.deleteAnnouncement}
-            />
-          ))}
-        </div>
+        <Details details={this.state.details} onEdit={this.handleDetailsEdit} />
       </div>
     );
   }
